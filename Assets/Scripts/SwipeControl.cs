@@ -78,6 +78,15 @@ public class SwipeControl : MonoBehaviour
             else if (Input.GetMouseButton(0))
             {
                 swipeDelta = (Vector2)Input.mousePosition - startTouch;
+
+                if (swipeDelta.x > maxSwipeValue)
+                {
+                    startTouch.x = Input.mousePosition.x - maxSwipeValue;
+                }
+                else if (swipeDelta.x < -maxSwipeValue)
+                {
+                    startTouch.x = Input.mousePosition.x + maxSwipeValue;
+                }
             }
 
             // Direction of Swipe

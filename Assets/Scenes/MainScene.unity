@@ -761,7 +761,7 @@ MonoBehaviour:
   isDragging: 0
   startTouch: {x: 0, y: 0}
   swipeDelta: {x: 0, y: 0}
-  maxSwipeValue: 150
+  maxSwipeValue: 250
 --- !u!1001 &2283695151619351483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -817,5 +817,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3062857253376072397, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062857253376072397, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 8.253078e-31
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062857253376072397, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062857253376072397, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062857253376072397, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062857253376072397, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+--- !u!1 &6858511325125367945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4656443917072005938, guid: 7399fd16ec56a9345adba2c8d3f0d71c, type: 3}
+  m_PrefabInstance: {fileID: 2283695151619351483}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6858511325125367946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6858511325125367945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106c27a9098464748a3b77cd62c8005e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rpm: 120
