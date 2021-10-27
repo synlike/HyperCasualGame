@@ -1,15 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    // Screen Infos
-    public float screenWidth;
-    public float screenHeight;
+    private bool isPlaying = true;
+    public bool IsPlaying { get { return isPlaying; } }
+
+
+    private int currentLevel = 1;
+    public int CurrentLevel { get { return currentLevel; } }
+
+    private int playerCoins = 0;
+    public int PlayerCoins { get { return playerCoins; } set { playerCoins = value; } }
+
+    private float currentFuel = 50;
+    public float CurrentFuel { get { return currentFuel; } set { currentFuel = value; } }
+
+    [SerializeField]
+    private TMP_Text coinsText;
+    [SerializeField]
+    private Image fuelBar;
+    [SerializeField]
+    private float fuelDecreaseRate = 0.5f;
+
+    [SerializeField]
+    private Animator fuelIconAnim;
 
     private void Awake()
     {
@@ -19,24 +40,59 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-
-
-            screenWidth = (float)Screen.width / 2.0f;
-            screenHeight = (float)Screen.height / 2.0f;
-
-            Debug.Log("WIDTH = " + screenWidth + " | HEIGHT = " + screenHeight);
         }
     }
 
 
     void Start()
     {
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
+
+        SimpleCollectibleScript.coinPickedDelegate += AddCoin;
+        SimpleCollectibleScript.fuelPickedDelegate += AddFuel;
+
+        UpdateCoins();
+        UpdateFuelBar();
+
+        StartCoroutine(FuelDecreaseCoroutine());
     }
 
 
     void Update()
     {
         
+    }
+
+    void AddCoin()
+    {
+        playerCoins++;
+        UpdateCoins();
+    }
+    void AddFuel(float value)
+    {
+        currentFuel += value;
+        currentFuel = Mathf.Clamp(currentFuel, 0f, 100f);
+        UpdateFuelBar();
+    }
+
+    private void UpdateCoins()
+    {
+        coinsText.text = playerCoins.ToString();
+    }
+
+    private void UpdateFuelBar()
+    {
+        fuelBar.fillAmount = currentFuel / 100;
+        fuelIconAnim.SetFloat("CurrentFuel", currentFuel);
+    }
+
+    IEnumerator FuelDecreaseCoroutine()
+    {
+        while(isPlaying)
+        {
+            currentFuel -= fuelDecreaseRate;
+            UpdateFuelBar();
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
     }
 }
