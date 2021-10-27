@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    private bool isPlaying = true;
+    private bool isPlaying = false;
     public bool IsPlaying { get { return isPlaying; } }
 
 
@@ -19,13 +19,15 @@ public class GameManager : MonoBehaviour
     private int playerCoins = 0;
     public int PlayerCoins { get { return playerCoins; } set { playerCoins = value; } }
 
-    private float currentFuel = 50;
+    private float currentFuel = 100;
     public float CurrentFuel { get { return currentFuel; } set { currentFuel = value; } }
 
     [SerializeField]
     private TMP_Text coinsText;
     [SerializeField]
     private Image fuelBar;
+    [SerializeField]
+    private GameObject playButton;
     [SerializeField]
     private float fuelDecreaseRate = 0.5f;
 
@@ -53,10 +55,20 @@ public class GameManager : MonoBehaviour
 
         UpdateCoins();
         UpdateFuelBar();
+    }
 
+    public void Play()
+    {
+        playButton.SetActive(false);
+        isPlaying = true;
         StartCoroutine(FuelDecreaseCoroutine());
     }
 
+    public void GameOver()
+    {
+        isPlaying = false;
+        // DO THE REST OF GAME OVER
+    }
 
     void Update()
     {

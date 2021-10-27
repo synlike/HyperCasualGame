@@ -29,16 +29,19 @@ public class HelicoController : MonoBehaviour
 
     private void Update()
     {
-        if(swipe.swipeRight || swipe.swipeLeft)
+        if(GameManager.Instance.IsPlaying)
         {
-            Rotate();
-        }
-        else
-        {
-            ResetRotation();
-        }
+            if (swipe.swipeRight || swipe.swipeLeft)
+            {
+                Rotate();
+            }
+            else
+            {
+                ResetRotation();
+            }
 
-        controller.Move(transform.forward * Time.deltaTime * forwardSpeed);
+            controller.Move(transform.forward * Time.deltaTime * forwardSpeed);
+        }
     }
 
     void FixedUpdate()
