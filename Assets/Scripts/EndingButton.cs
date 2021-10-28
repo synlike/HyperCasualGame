@@ -20,6 +20,6 @@ public class EndingButton : MonoBehaviour
     {
         GameManager.Instance.CanvasUI.ResetUI();
         GameManager.Instance.ResetAll();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

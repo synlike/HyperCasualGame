@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
         playerCoins = 0;
         currentLevel = 1;
-        currentScene = 0;
+        currentScene = 1;
         Init();
     }
 
