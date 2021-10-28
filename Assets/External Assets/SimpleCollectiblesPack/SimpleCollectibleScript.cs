@@ -43,6 +43,7 @@ public class SimpleCollectibleScript : MonoBehaviour {
 		}
 	}
 
+
 	public void Collect()
 	{
 		if(collectSound)

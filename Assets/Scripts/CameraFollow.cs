@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    private Camera cam;
+
     [SerializeField]
     private Transform target;
 
@@ -13,6 +15,25 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
 
+    public bool lerpFOV, unlerpFOV;
+
+    private void Start()
+    {
+        cam = GetComponent<Camera>();
+    }
+
+    private void Update()
+    {
+        if(lerpFOV)
+        {
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 63, 0.1f);
+        }
+
+        if(unlerpFOV)
+        {
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, 0.1f);
+        }
+    }
 
     void LateUpdate()
     {
@@ -20,7 +41,5 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothPos = Vector3.Lerp(transform.position, goToPos, smoothSpeed);
 
         transform.position = smoothPos;
-
-
     }
 }

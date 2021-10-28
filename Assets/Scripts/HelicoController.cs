@@ -9,6 +9,10 @@ public class HelicoController : MonoBehaviour
 
     [SerializeField] private float rotationDegreeClamp;
 
+    [SerializeField] private float boostDuration = 2f;
+
+    [SerializeField] private GameObject shieldEffect;
+
     private SwipeControl swipe;
 
     private Rigidbody rb;
@@ -19,6 +23,12 @@ public class HelicoController : MonoBehaviour
 
     private bool isHit = false;
 
+    private bool isInvicible = false;
+
+    private bool isBoost = false;
+
+    private bool hasShield = false;
+
 
     private void Start()
     {
@@ -26,6 +36,8 @@ public class HelicoController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         swipe = GetComponent<SwipeControl>();
         anim = GetComponent<Animator>();
+
+        GameManager.powerupDelegate += Powerup;
 
         originRot = transform.rotation;
     }
@@ -74,16 +86,76 @@ public class HelicoController : MonoBehaviour
         forwardSpeed *= 2;
     }
 
+    public void Powerup()
+    {
+        if(GameManager.Instance.CurrentPowerUp == GameManager.Powerups.Boost)
+        {
+            StartCoroutine(BoostCoroutine());
+
+        }
+        else if(GameManager.Instance.CurrentPowerUp == GameManager.Powerups.Shield)
+        {
+            hasShield = true;
+            shieldEffect.SetActive(true);
+        }
+    }
+
+    private void RemoveShield()
+    {
+        hasShield = false;
+        shieldEffect.SetActive(false);
+        StartCoroutine(InvicibleCoroutine());
+    }
+
+    IEnumerator BoostCoroutine()
+    {
+        CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
+
+        cam.unlerpFOV = false;
+        cam.lerpFOV = true;
+
+        forwardSpeed *= 1.5f;
+        yield return new WaitForSeconds(boostDuration);
+        forwardSpeed /= 1.5f;
+
+        cam.lerpFOV = false;
+        cam.unlerpFOV = true;
+    }
+
+    IEnumerator InvicibleCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(1.5f);
+        isInvicible = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Obstacle"))
         {
-            if(!isHit)
+            if(!isHit && !isInvicible)
             {
-                isHit = true;
-                anim.SetTrigger("Hit");
-                forwardSpeed /= 2;
+                if (hasShield)
+                {
+                    isInvicible = true;
+                    RemoveShield();
+                }
+                else
+                {
+                    isHit = true;
+                    anim.SetTrigger("Hit");
+                    forwardSpeed /= 2;
+                }
             }
         }
+        else if(other.CompareTag("Finish"))
+        {
+            GameManager.Instance.Win();
+        }
+    }
+
+
+    private void OnDestroy()
+    {
+        GameManager.powerupDelegate -= Powerup;
     }
 }
