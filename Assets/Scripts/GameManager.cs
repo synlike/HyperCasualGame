@@ -22,17 +22,11 @@ public class GameManager : MonoBehaviour
     private float currentFuel = 100;
     public float CurrentFuel { get { return currentFuel; } set { currentFuel = value; } }
 
-    [SerializeField]
-    private TMP_Text coinsText;
-    [SerializeField]
-    private Image fuelBar;
-    [SerializeField]
-    private GameObject playButton;
-    [SerializeField]
-    private float fuelDecreaseRate = 0.5f;
+    [SerializeField] 
+    private CanvasUI canvasUI;
 
     [SerializeField]
-    private Animator fuelIconAnim;
+    private float fuelDecreaseRate = 0.5f;
 
     private void Awake()
     {
@@ -59,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
-        playButton.SetActive(false);
+        canvasUI.ActiveUI();
         isPlaying = true;
         StartCoroutine(FuelDecreaseCoroutine());
     }
@@ -89,13 +83,13 @@ public class GameManager : MonoBehaviour
 
     private void UpdateCoins()
     {
-        coinsText.text = playerCoins.ToString();
+        canvasUI.coinsText.text = playerCoins.ToString();
     }
 
     private void UpdateFuelBar()
     {
-        fuelBar.fillAmount = currentFuel / 100;
-        fuelIconAnim.SetFloat("CurrentFuel", currentFuel);
+        canvasUI.fuelBarImage.fillAmount = currentFuel / 100;
+        canvasUI.fuelIconAnim.SetFloat("CurrentFuel", currentFuel);
     }
 
     IEnumerator FuelDecreaseCoroutine()

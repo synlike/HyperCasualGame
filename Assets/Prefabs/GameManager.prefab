@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 835667287}
   - component: {fileID: 835667286}
   - component: {fileID: 835667285}
+  - component: {fileID: 8985375476302264381}
   m_Layer: 5
   m_Name: CanvasUI
   m_TagString: Untagged
@@ -176,6 +177,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8985375476302264381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835667284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff688be0bc11864a97a790e5efa0846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinsText: {fileID: 1938753045}
+  fuelBarImage: {fileID: 1080968827}
+  fuelIconAnim: {fileID: 2056571891}
+  playButton: {fileID: 1320822291}
+  powerButton: {fileID: 880631563}
+  fuelBar: {fileID: 1871469004}
 --- !u!1 &837087356
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &880631564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -601,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -668,7 +687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -4, y: 526}
+  m_AnchoredPosition: {x: -4, y: 777}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1320822295
@@ -780,7 +799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1871469005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1112,8 +1131,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9605f6f5f45fd4845b2d1faea9a272fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsText: {fileID: 1938753045}
-  fuelBar: {fileID: 1080968827}
-  playButton: {fileID: 1320822291}
-  fuelDecreaseRate: 0.5
-  fuelIconAnim: {fileID: 2056571891}
+  canvasUI: {fileID: 8985375476302264381}
+  fuelDecreaseRate: 0.75

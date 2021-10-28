@@ -13,8 +13,11 @@ public class HelicoController : MonoBehaviour
 
     private Rigidbody rb;
     private CharacterController controller;
+    private Animator anim;
 
     private Quaternion originRot;
+
+    private bool isHit = false;
 
 
     private void Start()
@@ -22,6 +25,7 @@ public class HelicoController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
         swipe = GetComponent<SwipeControl>();
+        anim = GetComponent<Animator>();
 
         originRot = transform.rotation;
     }
@@ -62,5 +66,24 @@ public class HelicoController : MonoBehaviour
     void ResetRotation()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, originRot, 0.1f);
+    }
+
+    public void ResetHit()
+    {
+        isHit = false;
+        forwardSpeed *= 2;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Obstacle"))
+        {
+            if(!isHit)
+            {
+                isHit = true;
+                anim.SetTrigger("Hit");
+                forwardSpeed /= 2;
+            }
+        }
     }
 }
