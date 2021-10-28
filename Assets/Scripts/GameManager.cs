@@ -30,12 +30,14 @@ public class GameManager : MonoBehaviour
     private float currentFuel = 100;
     public float CurrentFuel { get { return currentFuel; } set { currentFuel = value; } }
 
-    private int currentScene = 0;
+    private int currentScene = 1;
 
-    private int maxLevel = 2;
+    private int maxLevel = 5;
 
     [SerializeField] 
     private CanvasUI canvasUI;
+    public CanvasUI CanvasUI { get { return canvasUI; } }
+
     [SerializeField]
     private CanvasGameOver canvasGameOver;
     [SerializeField]
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
+        SimpleCollectibleScript.coinPickedDelegate -= AddCoin;
+        SimpleCollectibleScript.fuelPickedDelegate -= AddFuel;
         SimpleCollectibleScript.coinPickedDelegate += AddCoin;
         SimpleCollectibleScript.fuelPickedDelegate += AddFuel;
 
@@ -86,6 +90,14 @@ public class GameManager : MonoBehaviour
             canvasUI.HidePanel();
             canvasPowerUp.panelPowerUp.SetActive(true);
         }
+    }
+
+    public void ResetAll()
+    {
+        playerCoins = 0;
+        currentLevel = 1;
+        currentScene = 0;
+        Init();
     }
 
     public void Play()
@@ -121,15 +133,21 @@ public class GameManager : MonoBehaviour
         currentScene++;
         currentLevel++;
 
-        if (currentScene <= maxLevel)
+        if (currentLevel <= maxLevel)
         {
             SceneManager.LoadScene(currentScene);
             Init();
+        }
+        else
+        {
+            // STOP THE GAME
+            SceneManager.LoadScene("Ending");
         }
     }
 
     public void Win()
     {
+        currentPowerUp = Powerups.None;
         canvasUI.HidePanel();
         UpdatePowerUpBar();
         StopAllCoroutines();
@@ -139,6 +157,7 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
+        currentPowerUp = Powerups.None;
         canvasUI.HidePanel();
         UpdatePowerUpBar();
         StopAllCoroutines();

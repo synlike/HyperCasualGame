@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class LevelModifyers : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private HelicoController helico;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private float speedMultiplier;
+
+    private void Start()
     {
-        
+        helico.ForwardSpeed *= speedMultiplier;
     }
 }

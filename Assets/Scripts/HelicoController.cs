@@ -5,6 +5,7 @@ using UnityEngine;
 public class HelicoController : MonoBehaviour
 {
     [SerializeField] private float forwardSpeed;
+    public float ForwardSpeed { get { return forwardSpeed; } set { forwardSpeed = value; } }
     [SerializeField] private float swerveSpeed;
 
     [SerializeField] private float rotationDegreeClamp;
